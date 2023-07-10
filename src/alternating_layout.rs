@@ -1,6 +1,6 @@
 use std::process;
 
-use swayipc::{Connection, Event, EventStream, EventType, Fallible, Node, NodeLayout, WindowChange};
+use swayipc::{Connection, Event, EventStream, EventType, Fallible, Node, NodeLayout, NodeType, WindowChange};
 
 pub fn start_alternating_layout() {
     let (subscription, mut command) = connect();
@@ -35,7 +35,7 @@ fn handle_event(event: Fallible<Event>, command: &mut Connection) {
     let Ok(Event::Window(window)) = event else {
         return;
     };
-    if WindowChange::Focus == window.change {
+    if WindowChange::Focus == window.change && NodeType::FloatingCon != window.container.node_type{
         set_layout(window.container, command);
     };
 }
