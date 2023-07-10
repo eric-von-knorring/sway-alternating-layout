@@ -17,8 +17,8 @@ fn main() {
                         process::exit(exitcode::USAGE);
                     });
                 write_pid(path)
-            },
-            "-h" => print_help_text(),
+            }
+            "-h" | "--help" => help(),
             _ => unknown_argument(&arg)
         }
     }
@@ -26,15 +26,23 @@ fn main() {
     start_alternating_layout();
 }
 
+
+fn help() {
+    print_help_text();
+    process::exit(exitcode::OK)
+}
+
 fn print_help_text() {
     println!("Usage: sway-alternating-layout [-p path/to/pid.file]
 
 Options:
+    -h, --help            Displays help text
     -p path/to/pid.file   Saves the PID for this program in the filename specified")
 }
 
 fn unknown_argument(arg: &str) {
     eprintln!("Error: Unknown argument '{}'", arg);
+    print_help_text();
     process::exit(exitcode::USAGE);
 }
 
