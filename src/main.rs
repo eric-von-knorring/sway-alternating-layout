@@ -41,7 +41,7 @@ Options:
 }
 
 fn unknown_argument(arg: &str) {
-    eprintln!("Error: Unknown argument '{}'", arg);
+    eprintln!("Error: Unknown argument '{arg}'");
     print_help_text();
     process::exit(exitcode::USAGE);
 }
@@ -49,8 +49,8 @@ fn unknown_argument(arg: &str) {
 fn write_pid(path: String) {
     match std::fs::write(path, process::id().to_string()) {
         Ok(_) => {}
-        Err(err) => {
-            eprintln!("Error: could not write pid. '{}'", err);
+        Err(error) => {
+            eprintln!("Error: could not write pid. '{error}'");
             process::exit(exitcode::CANTCREAT);
         }
     }

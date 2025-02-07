@@ -15,7 +15,7 @@ fn connect() -> (EventStream, Connection) {
         .and_then(|connection| connection.subscribe([EventType::Window])) {
         Ok(conn) => conn,
         Err(error) => {
-            eprintln!("Error: failed to set upp ipc subscription. {}", error);
+            eprintln!("Error: failed to set upp ipc subscription. {error}");
             process::exit(exitcode::IOERR);
         }
     };
@@ -23,7 +23,7 @@ fn connect() -> (EventStream, Connection) {
     let commands = match Connection::new() {
         Ok(conn) => conn,
         Err(error) => {
-            eprintln!("Error: failed to set upp ipc connection. {}", error);
+            eprintln!("Error: failed to set upp ipc connection. {error}");
             process::exit(exitcode::IOERR);
         }
     };
